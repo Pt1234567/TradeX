@@ -83,7 +83,7 @@ public class UserController {
     @PostMapping("/auth/users/reset-password/send-otp")
     public ResponseEntity<AuthResponse>  sendForgotPasswordOtp( @RequestBody ForgotPasswordTokenRequest forgotPasswordTokenRequest) throws Exception {
 
-        User user=userService.findUserByJwt(forgotPasswordTokenRequest.getSendTo());
+        User user=userService.findUserByEmail(forgotPasswordTokenRequest.getSendTo());
 
         String otp= OtpUtils.generateOtp();
         UUID uuid=UUID.randomUUID();
@@ -91,8 +91,14 @@ public class UserController {
 
         ForgotPasswordToken forgotPasswordToken=forgotPasswordService.findByUserId(user.getId());
 
-        if(forgotPasswordToken==null){
-            forgotPasswordToken=forgotPasswordService.createToken(user,id,otp,forgotPasswordTokenRequest.getVerificationType(), forgotPasswordTokenRequest.getSendTo());
+        if(forgotPasswordToken!=null){
+            forgotPasswordService.deleteToken(forgotPasswordToken);
+        }
+        forgotPasswordToken=forgotPasswordService.createToken(user,id,otp,forgotPasswordTokenRequest.getVerificationType(), forgotPasswordTokenRequest.getSendTo());
+
+
+        if(forgotPasswordTokenRequest.getVerificationType().equals(VerificationType.EMAIL)){
+            emailService.sendVerificationOtpEmail(user.getEmail(), otp);
         }
 
         AuthResponse authResponse=new AuthResponse();
