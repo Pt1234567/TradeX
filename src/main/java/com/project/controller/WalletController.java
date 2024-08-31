@@ -4,6 +4,7 @@ import com.project.Entity.Order;
 import com.project.Entity.User;
 import com.project.Entity.Wallet;
 import com.project.Entity.WalletTransaction;
+import com.project.service.OrderService;
 import com.project.service.UserService;
 import com.project.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class WalletController {
 
     @Autowired
     private WalletService walletService;
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private UserService userService;
