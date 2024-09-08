@@ -5,9 +5,11 @@ import com.project.Repository.OrderItemRepository;
 import com.project.Repository.OrderRepository;
 import com.project.helper.OrderStatus;
 import com.project.helper.OrderType;
+import com.project.helper.WalletTransactionType;
 import com.project.service.AssetService;
 import com.project.service.OrderService;
 import com.project.service.WalletService;
+import com.project.service.WalletTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private WalletTransactionService walletTransactionService;
 
     @Autowired
     private AssetService assetService;
@@ -88,7 +93,6 @@ public class OrderServiceImpl implements OrderService {
         }else{
             assetService.updateAsset(oldAsset.getId(), quantity);
         }
-
         return saveOrder;
     }
 

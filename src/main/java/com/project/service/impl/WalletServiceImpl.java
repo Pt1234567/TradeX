@@ -7,10 +7,12 @@ import com.project.Repository.WalletRepository;
 import com.project.helper.OrderType;
 import com.project.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Service
 public class WalletServiceImpl implements WalletService {
 
     @Autowired
@@ -22,6 +24,7 @@ public class WalletServiceImpl implements WalletService {
         if(wallet==null){
             wallet=new Wallet();
             wallet.setUser(user);
+            walletRepository.save(wallet);
         }
         return wallet;
     }

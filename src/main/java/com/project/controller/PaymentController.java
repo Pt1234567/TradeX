@@ -32,9 +32,9 @@ public class PaymentController {
              PaymentResponse paymentResponse;
         PaymentOrder paymentOrder=paymentOrderService.createPaymentOrder(user,amount,paymentMethod);
         if(paymentMethod.equals(PaymentMethod.RAZORPAY)){
-            paymentResponse=paymentOrderService.createRazorpayPaymentLink(user,amount);
+            paymentResponse=paymentOrderService.createRazorpayPaymentLink(user,amount,paymentOrder.getId());
         }else{
-            paymentResponse=paymentOrderService.createRazorpayPaymentLink(user,amount);
+            paymentResponse=paymentOrderService.createStripePaymentLink(user,amount,paymentOrder.getId());
         }
 
         return new ResponseEntity<>(paymentResponse, HttpStatus.CREATED);

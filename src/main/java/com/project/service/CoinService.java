@@ -13,7 +13,7 @@ public interface CoinService  {
     Coin findById(String id) throws Exception;//get coin from database
     String searchCoin(String keyword) throws Exception;
     String getTop50CoinByMarketCapRank() throws Exception;
-    String getTradingCoins() throws Exception;
+    String getTrendingCoins() throws Exception;
 
 
 }

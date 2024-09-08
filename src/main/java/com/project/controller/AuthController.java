@@ -8,6 +8,7 @@ import com.project.response.AuthResponse;
 import com.project.service.CustomUserDetailService;
 import com.project.service.EmailService;
 import com.project.service.TwoFactorOtpService;
+import com.project.service.WatchListService;
 import com.project.utils.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class AuthController {
 
     @Autowired
     private CustomUserDetailService customUserDetailService;
+
+    @Autowired
+    private WatchListService watchListService;
 
     @Autowired
     private TwoFactorOtpService twoFactorOtpService;
@@ -51,6 +55,7 @@ public class AuthController {
 
 
         User savedUser=userRepository.save(newUser);
+        watchListService.createWatchList(savedUser);
 
         Authentication authentication=new UsernamePasswordAuthenticationToken(
                 user.getEmail(),

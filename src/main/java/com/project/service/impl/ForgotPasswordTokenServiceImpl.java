@@ -6,7 +6,9 @@ import com.project.Repository.ForgotPasswordRepository;
 import com.project.helper.VerificationType;
 import com.project.service.ForgotPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ForgotPasswordTokenServiceImpl implements ForgotPasswordService {
 
     @Autowired

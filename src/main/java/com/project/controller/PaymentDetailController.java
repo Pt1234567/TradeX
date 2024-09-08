@@ -28,7 +28,7 @@ public class PaymentDetailController {
                 paymentDetails.getAccountHolderName(),
                 paymentDetails.getIfsc(),
                 paymentDetails.getBankName(),
-                paymentDetails.getUser()
+                user
         );
         return new ResponseEntity<>(paymentDetails1, HttpStatus.CREATED);
     }

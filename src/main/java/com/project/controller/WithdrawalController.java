@@ -2,9 +2,12 @@ package com.project.controller;
 
 import com.project.Entity.User;
 import com.project.Entity.Wallet;
+import com.project.Entity.WalletTransaction;
 import com.project.Entity.Withdrawal;
+import com.project.helper.WalletTransactionType;
 import com.project.service.UserService;
 import com.project.service.WalletService;
+import com.project.service.WalletTransactionService;
 import com.project.service.WithdrawalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class WithdrawalController {
     @Autowired
     private WithdrawalService withdrawalService;
 
+   @Autowired
+   private WalletTransactionService walletTransactionService;
+
     @Autowired
     private WalletService walletService;
 
@@ -32,6 +38,8 @@ public class WithdrawalController {
 
         Withdrawal withdrawalRequest=withdrawalService.requestWithdrawal(amount,user);
         walletService.addBalance(userWallet,-withdrawalRequest.getAmount());
+
+        WalletTransaction walletTransaction=walletTransactionService.createTransaction(userWallet,WalletTransactionType.WITHDRAWAL,"Withdrawal",amount);
         return new ResponseEntity<>(withdrawalRequest, HttpStatus.OK);
     }
 

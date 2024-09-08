@@ -1,5 +1,7 @@
 package com.project.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.Entity.Coin;
 import com.project.Entity.Order;
 import com.project.Entity.User;
@@ -23,6 +25,9 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private CoinService coinService;
 
     @Autowired
@@ -30,10 +35,9 @@ public class OrderController {
 
 
     @PostMapping("/pay")
-    public ResponseEntity<Order> payOrderPayment(@RequestHeader("Header")String jwt, @RequestBody CreateOrderRequest request) throws Exception {
+    public ResponseEntity<Order> payOrderPayment(@RequestHeader("Authorization")String jwt, @RequestBody CreateOrderRequest request) throws Exception {
         User user=userService.findUserByJwt(jwt);
         Coin coin=coinService.findById(request.getCoinId());
-
         Order order=orderService.processOrder(coin, request.getQuantity(), request.getOrderType(),user);
         return ResponseEntity.ok(order);
     }

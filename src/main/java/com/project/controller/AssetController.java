@@ -4,6 +4,7 @@ import com.project.Entity.Asset;
 import com.project.Entity.User;
 import com.project.service.AssetService;
 import com.project.service.UserService;
+import com.project.service.WalletTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,9 @@ public class AssetController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private WalletTransactionService walletTransactionService;
 
     @GetMapping("/{assetId}")
     public ResponseEntity<Asset> getAssetById(@PathVariable Long assetId) throws Exception {
